@@ -1,5 +1,6 @@
+import random
+
 def random_exception():
-    import random
     random_key = random.choice([1,2,3])
 
     if random_key == 1:
