@@ -31,24 +31,24 @@ def get_routes():
     """
 
     # Dynamic load:
-    # def class_filter(klass):
-    #     return inspect.isclass(klass) \
-    #            and klass.__module__ == BaseCommand.__module__ \
-    #            and issubclass(klass, BaseCommand) \
-    #            and klass is not BaseCommand
-    #
-    # routes = inspect.getmembers(
-    #     sys.modules[BaseCommand.__module__],
-    #     class_filter
-    # )
-    # return dict((route.label(), route) for _, route in routes)
+    def class_filter(klass):
+        return inspect.isclass(klass) \
+               and klass.__module__ == BaseCommand.__module__ \
+               and issubclass(klass, BaseCommand) \
+               and klass is not BaseCommand
 
-    return {
-        ListCommand.label(): ListCommand,
-        NewCommand.label(): NewCommand,
-        ExitCommand.label(): ExitCommand,
-        DoneCommand.label(): DoneCommand,
-    }
+    routes = inspect.getmembers(
+        sys.modules[BaseCommand.__module__],
+        class_filter
+    )
+    return dict((route.label(), route) for _, route in routes)
+
+    # return {
+    #     ListCommand.label(): ListCommand,
+    #     NewCommand.label(): NewCommand,
+    #     ExitCommand.label(): ExitCommand,
+    #     DoneCommand.label(): DoneCommand,
+    # }
 
 
 def perform_command(command):
